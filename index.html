@@ -12,36 +12,47 @@
 
     <link rel="stylesheet" href="css/reset.css">
     <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/cabecalho.css">
 </head>
 
 <body>
-    <header>
-        <a href="/">
-            <img src="./assets/images/logo.svg" alt="Dev em Dobro">
-        </a>
-        <nav>
-            <ul>
-                <li>
-                    <a href="#home">Home</a>
-                </li>
-                <li>
-                    <a href="#sobre">Sobre</a>
-                </li>
-                <li>
-                    <a href="#produtos">Produtos</a>
-                </li>
-                <li>
-                    <a href="#faq">Perguntas Frequentes</a>
-                </li>
-                <li>
-                    <a href="#contato">Fale conosco</a>
-                </li>
-            </ul>
-        </nav>
-        <button>
-            <img src="./assets/images/icone_carrinho.svg" alt="Carrinho de compras">
-        </button>
+    <header class="cabecalho">
+        <div class="header-conteudo">
+            <div class="header-esquerda">
+                <button class="menu-hamburguer">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+
+            <a class="logo" href="/">
+                <img src="./assets/images/logo.svg" alt="Dev em Dobro">
+            </a>
+            </div>
+            <nav class="menu-principal">
+                <ul>
+                    <li>
+                        <a href="#home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#sobre">Sobre</a>
+                    </li>
+                    <li>
+                        <a href="#produtos">Produtos</a>
+                    </li>
+                    <li>
+                        <a href="#faq">Perguntas Frequentes</a>
+                    </li>
+                    <li>
+                        <a href="#contato">Fale conosco</a>
+                    </li>
+                </ul>
+            </nav>
+            <button class="botao-carrinho">
+                <img src="./assets/images/icone_carrinho.svg" alt="Carrinho de compras">
+                <span class="contador-carrinho">0</span>
+            </button>
+        </div>
     </header>
     <main>
         <section>
