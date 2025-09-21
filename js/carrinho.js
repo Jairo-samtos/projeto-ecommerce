@@ -20,17 +20,17 @@ Objetivo 3 - atualizar valores do carrinho:
 //     - adicionar o produto no localStorage
 //     - atualizar a tabela HTML do carrinho
 
-const botoesAdicionarAoCarrinho = document.querySelectorAll('.adicionar-ao-carrinho');
+const botoesAdicionarAoCarrinho = document.querySelectorAll(".adicionar-ao-carrinho");
 // passo 2 - adicionar um evento de escuta nesses botões para quando clicar disparar uma ação
 botoesAdicionarAoCarrinho.forEach(botao => {
-    botao.addEventListener('click', (evento) => {
+    botao.addEventListener("click", (evento) => {
         console.log("Botão de adicionar ao carrinho clicado!");
         // passo 3 - pega as informações do produto clicado e adicionar no localStorage
-        const elementoProduto = evento.target.closest('.produto');
+        const elementoProduto = evento.target.closest(".produto");
         const produtoId = elementoProduto.dataset.id;
-        const produtoNome = elementoProduto.querySelector('.nome').textContent;
-        const produtoImagem = elementoProduto.querySelector('img').getAttribute('src');
-        const produtoPreco = parseFloat(elementoProduto.querySelector('.preco').textContent.replace('R$', '').replace('.', '').replace(',', '.'));
+        const produtoNome = elementoProduto.querySelector(".nome").textContent;
+        const produtoImagem = elementoProduto.querySelector("img").getAttribute("src");
+        const produtoPreco = parseFloat(elementoProduto.querySelector('.preco').textContent.replace("R$", "").replace(".", "").replace(",", "."));
 
         //buscar a lista de produtos no localStorage
         const carrinho = obterProdutosDoCarrinho();
@@ -54,6 +54,7 @@ botoesAdicionarAoCarrinho.forEach(botao => {
 
         salvarProdutosNoCarrinho(carrinho);
         atualizarContadorDoCarrinho();
+        renderizarTabelaDoCarrinho();
 
     });
 });
@@ -63,20 +64,45 @@ function salvarProdutosNoCarrinho(carrinho) {
 }
 
 function obterProdutosDoCarrinho() {
-    const produtos = localStorage.getItem('carrinho');
+    const produtos = localStorage.getItem("carrinho");
     return produtos ? JSON.parse(produtos) : [];
 }
 
 // passo 4 - atualizar o contador do carrinho de compras
 function atualizarContadorDoCarrinho() {
-    const carrinho = obterProdutosDoCarrinho();
+    const produtos = obterProdutosDoCarrinho();
     let total = 0;
 
-    carrinho.forEach(produto => {
+    produtos.forEach(produto => {
         total += produto.quantidade;
     });
 
-    document.getElementById('contador-carrinho').textContent = total;
+    document.getElementById("contador-carrinho").textContent = total;
 }
 
 atualizarContadorDoCarrinho();
+
+//passo 5 - renderizar a tabela do carrinho de compras
+function renderizarTabelaDoCarrinho() {
+    const produtos = obterProdutosDoCarrinho();
+    const corpoTabela = document.querySelector("#modal-1-content tbody");
+    corpoTabela.innerHTML = "";
+
+    produtos.forEach(produto => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `<td class="td-produto">
+    <img src="${produto.imagem}" 
+    alt ="${produto.nome}">
+    </td>
+    <td>${produto.nome}</td>
+                                <td class="td-preco-unitario">R$ ${produto.preco.toFixed(2).replace(",", ".")}</td>
+                                <td class="td-quantidade"><input type="number" value="${produto.quantidade}" min="1"></td>
+                                <td class="td-preco-total">R$ ${produto.preco.toFixed(2).replace(",", ".")}</td>
+                                <td>
+                                    <button class="btn-remover" data-id="${produto.id}" id="deletar"></button>`;
+
+        corpoTabela.appendChild(tr);
+
+    });
+}
+renderizarTabelaDoCarrinho();
